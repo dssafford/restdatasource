@@ -1,8 +1,6 @@
 package com.doug.service;
 
-import com.doug.model.City;
 import com.doug.model.Quiz;
-import com.doug.repository.CityRepository;
 import com.doug.repository.QuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +14,8 @@ public class QuizServiceImpl implements QuizService{
     @Override
     public Iterable<Quiz> getAllResults() {
 
-
-        return quizRepository.findAll();
+        Iterable<Quiz> myquiz = quizRepository.findAll();
+        return myquiz;
     }
 
     @Override

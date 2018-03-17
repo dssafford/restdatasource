@@ -11,7 +11,6 @@ public class Quiz {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
     private Integer question ;
     private Integer answer;
     private Boolean correct;

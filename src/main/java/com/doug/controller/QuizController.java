@@ -15,16 +15,18 @@ public class QuizController {
     QuizService quizService;
 
     @CrossOrigin
-    @RequestMapping(value = "/api/Quiz", method = RequestMethod.GET)
-    public Iterable list(Model model) {
+    @RequestMapping(value = "/api/QuizList", method = RequestMethod.GET)
+    public Iterable list() {
 
 
         Iterable<Quiz> myQuizzes= quizService.getAllResults();
 
-        model.addAttribute("quizzes", myQuizzes);
+//        model.addAttribute("quizzes", myQuizzes);
 
         return myQuizzes;
     }
+
+
 
     @CrossOrigin
     @RequestMapping(value = "/api/Quiz", method = RequestMethod.POST)
