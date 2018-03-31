@@ -1,30 +1,62 @@
 package com.doug.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@Table(name = "quiz")
 public class Quiz {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer question ;
-    private Integer answer;
-    private Boolean correct;
-    private String date_added;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_added")
+    private Date date_added = new Date();
+
+    @NotNull
+    private Integer numberOfQuestions;
+
+    @NotNull
+    private Integer score;
+
+    @NotNull
+    @Size(max = 250)
     private String comments;
+
+
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "quiz")
+    private Set<Answer> answers = new HashSet<>();
 
     public Quiz(){}
 
-    public Quiz(Integer question, Integer answer, Boolean correct, String date_added, String comments) {
-        this.question = question;
-        this.answer = answer;
-        this.correct = correct;
-        this.date_added = date_added;
+    public Quiz(Integer numberOfQuestions, Integer score, String comments) {
+        this.numberOfQuestions = numberOfQuestions;
+        this.score = score;
         this.comments = comments;
+    }
+
+    public Integer getNumberOfQuestions() {
+        return numberOfQuestions;
+    }
+
+    public void setNumberOfQuestions(Integer numberOfQuestions) {
+        this.numberOfQuestions = numberOfQuestions;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
     }
 
     public Integer getId() {
@@ -35,35 +67,12 @@ public class Quiz {
         this.id = id;
     }
 
-    public Integer getQuestion() {
-        return question;
-    }
 
-    public void setQuestion(Integer question) {
-        this.question = question;
-    }
-
-    public Integer getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(Integer answer) {
-        this.answer = answer;
-    }
-
-    public Boolean getCorrect() {
-        return correct;
-    }
-
-    public void setCorrect(Boolean correct) {
-        this.correct = correct;
-    }
-
-    public String getDate_added() {
+    public Date getDate_added() {
         return date_added;
     }
 
-    public void setDate_added(String date_added) {
+    public void setDate_added(Date date_added) {
         this.date_added = date_added;
     }
 
@@ -74,12 +83,14 @@ public class Quiz {
     public void setComments(String comments) {
         this.comments = comments;
     }
+
+    public Set<Answer> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(Set<Answer> answers) {
+        this.answers = answers;
+    }
+
+
 }
-
-
-//  id: number;
-//          question: number;
-//          answer: number;
-//          correct: boolean;
-//          date_added: string;
-//          comments: string;

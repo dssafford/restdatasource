@@ -1,15 +1,21 @@
 package com.doug.service;
 
+import com.doug.model.Answer;
 import com.doug.model.Quiz;
 import com.doug.repository.QuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class QuizServiceImpl implements QuizService{
 
     @Autowired
     QuizRepository quizRepository;
+
+
 
     @Override
     public Iterable<Quiz> getAllResults() {
@@ -19,9 +25,45 @@ public class QuizServiceImpl implements QuizService{
     }
 
     @Override
-    public void addQuiz(Quiz quiz) {
+    public Quiz getOneResult(Integer id) {
+
+         Quiz myquiz = quizRepository.findOne(id);
+        return myquiz;
+    }
+
+
+    @Override
+    public Iterable<Quiz> getQuizIdandComments() {
+
+        return quizRepository.getQuizIdandComments();
+    }
+
+    @Override
+    public void addSampleQuizData() {
+
+
+        Quiz quiz = new Quiz(3, 80, "dude comments here");
+
+        Answer myAnswer1 = new Answer();
+        myAnswer1.setQuestion(1);
+        myAnswer1.setAnswer(1);
+        myAnswer1.setCorrect(true);
+        myAnswer1.setComments("comments in answer here");
+        myAnswer1.setQuiz(quiz);
+
+        Answer myAnswer2 = new Answer();
+        myAnswer1.setQuestion(1);
+        myAnswer1.setAnswer(1);
+        myAnswer1.setCorrect(true);
+        myAnswer1.setComments("comments in answer here");
+        myAnswer1.setQuiz(quiz);
+
+        quiz.getAnswers().add(myAnswer1);
+        quiz.getAnswers().add(myAnswer2);
 
         quizRepository.save(quiz);
+
+//        quizRepository.delete(4);
 
     }
 }

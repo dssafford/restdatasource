@@ -1,0 +1,34 @@
+server:
+  port: 8004
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+    healthcheck:
+      enabled: true
+    lease:
+      duration: 5
+
+
+
+logging:
+  level:
+    com.example.howtodoinjava: DEBUG
+
+spring:
+  application:
+    name: rest-datasource
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+  datasource:
+    url: jdbc:mysql://0.0.0.0:9015/eatshit
+    username: root
+    password: mypassword
