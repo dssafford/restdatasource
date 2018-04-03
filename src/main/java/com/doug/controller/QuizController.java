@@ -1,17 +1,17 @@
 package com.doug.controller;
 
 import com.doug.model.Answer;
-import com.doug.model.City;
 import com.doug.model.Quiz;
 import com.doug.repository.QuizRepository;
-import com.doug.service.CityService;
 import com.doug.service.QuizService;
+import com.sun.xml.internal.xsom.impl.scd.Iterators;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class QuizController {
@@ -22,13 +22,13 @@ public class QuizController {
     @Autowired
     QuizRepository quizRepository;
 
-    @CrossOrigin
-    @RequestMapping(value = "/api/getSome", method = RequestMethod.GET)
-    public Iterable getQuizIdandComments() {
-
-        Iterable<Quiz> myQuizzes= quizService.getQuizIdandComments();
-        return myQuizzes;
-    }
+//    @CrossOrigin
+//    @RequestMapping(value = "/api/getSome", method = RequestMethod.GET)
+//    public Iterable getQuizIdandComments() {
+//
+//        Iterable<Quiz> myQuizzes= quizService.getQuizIdandComments();
+//        return myQuizzes;
+//    }
 
     @CrossOrigin
     @RequestMapping(value = "/api/QuizList", method = RequestMethod.GET)
@@ -44,18 +44,38 @@ public class QuizController {
         return quizService.getOneResult(id);
     }
 
-//    @CrossOrigin
-//    @RequestMapping(value = "/api/Quiz", method = RequestMethod.POST)
-//    public void AddQuiz(@RequestBody Quiz quiz) {
-//
-//        quizService.addQuiz(quiz, new Answer());
-//    }
+    @CrossOrigin
+    @RequestMapping(value = "/api/Quiz", method = RequestMethod.POST)
+    public void getQuiz(@RequestBody Quiz quiz) {
+
+        this.MapObjects(quiz);
+
+//        quizService.addQuiz(quiz);
+    }
+
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/Quiz", method = RequestMethod.OPTIONS)
+    public void AddQuiz(@RequestBody Quiz quiz) {
+
+        quizService.addQuiz(quiz);
+    }
 
     @CrossOrigin
     @RequestMapping(value = "/api/deleteQuiz", method = RequestMethod.GET)
     public void DeleteQuiz() {
 
-        quizRepository.delete(4);
+//        quizRepository.delete(4);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/getQuiz", method = RequestMethod.GET)
+    public void getQuizzes() {
+
+        List<Quiz> quizzes = quizRepository.findAll();
+        System.out.println(quizzes.toString());
+
+
     }
 
 
@@ -63,9 +83,7 @@ public class QuizController {
     @RequestMapping(value = "/api/addQuiz", method = RequestMethod.GET)
     public void AddFakeQuiz() {
 
-//        quizService.addQuiz(quiz);*/
-
-        Quiz quiz = new Quiz(2, 85, "dude comments here");
+        Quiz quiz = new Quiz(12, 85, "dude comments here");
 
         Answer myAnswer1 = new Answer();
         myAnswer1.setQuestion(1);
@@ -88,6 +106,40 @@ public class QuizController {
 
 
 //        quizRepository.delete(4);
+
+
+
+
+    }
+
+    private void MapObjects(Quiz quiz) {
+
+        Quiz newQuiz = new Quiz(quiz.getNumberOfQuestions(), quiz.getScore(), quiz.getComments());
+        Set<Answer> mynewAnswers = new HashSet<>();
+
+
+        Set<Answer> answers = quiz.getAnswers();
+
+        //Iterator<Answer> iterator = answers.iterator();
+        for (Answer answer : answers) {
+            System.out.println(answer.getAnswer());
+
+            Answer myAnswer1 = new Answer();
+            myAnswer1.setQuestion(answer.getQuestion());
+            myAnswer1.setAnswer(answer.getAnswer());
+            myAnswer1.setCorrect(answer.getCorrect());
+            myAnswer1.setComments(answer.getComments());
+            myAnswer1.setQuiz(newQuiz);
+
+            mynewAnswers.add(myAnswer1);
+        }
+
+
+//        newQuiz.getAnswers().add(myAnswer2);
+
+        newQuiz.setAnswers(mynewAnswers);
+
+        quizRepository.save(newQuiz);
 
     }
 

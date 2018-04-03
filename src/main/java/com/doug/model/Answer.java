@@ -3,7 +3,7 @@ package com.doug.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Date;
+
 
 @Entity
 @Table(name = "answer")
@@ -30,6 +30,14 @@ public class Answer {
 
     public Answer() {
 
+    }
+
+    public Answer(@NotNull Integer question, @NotNull Integer answer,
+                  @NotNull Boolean correct, @Size(max = 250) String comments) {
+        this.question = question;
+        this.answer = answer;
+        this.correct = correct;
+        this.comments = comments;
     }
 
     public Long getId() {

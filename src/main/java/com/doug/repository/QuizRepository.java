@@ -11,8 +11,8 @@ public interface QuizRepository extends CrudRepository<Quiz, Integer> {
 
     List<Quiz> findAll();
 
-    @Query("select id, numberOfQuestions, score, date_added, comments  from Quiz")
-    Iterable<Quiz> getQuizIdandComments();
+//    @Query("select id, numberOfQuestions, score, date_added, comments  from Quiz")
+//    Iterable<Quiz> getQuizIdandComments();
 
 
 }

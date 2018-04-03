@@ -38,9 +38,9 @@ public class Quiz {
     public Quiz(){}
 
     public Quiz(Integer numberOfQuestions, Integer score, String comments) {
-        this.numberOfQuestions = numberOfQuestions;
         this.score = score;
         this.comments = comments;
+        this.numberOfQuestions = numberOfQuestions;
     }
 
     public Integer getNumberOfQuestions() {
