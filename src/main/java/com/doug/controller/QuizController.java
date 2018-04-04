@@ -4,14 +4,10 @@ import com.doug.model.Answer;
 import com.doug.model.Quiz;
 import com.doug.repository.QuizRepository;
 import com.doug.service.QuizService;
-import com.sun.xml.internal.xsom.impl.scd.Iterators;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 public class QuizController {
@@ -34,7 +30,20 @@ public class QuizController {
     @RequestMapping(value = "/api/QuizList", method = RequestMethod.GET)
     public Iterable list() {
         Iterable<Quiz> myQuizzes= quizService.getAllResults();
-        return myQuizzes;
+
+        ArrayList<Quiz> returnQuizzes = new ArrayList<>();
+        Quiz newQuiz;
+
+        for (int i = 0; i< ((Collection<?>) myQuizzes).size();i++) {
+            newQuiz = new Quiz(myQuizzes.iterator().next().getScore(),myQuizzes.iterator().next().getNumberOfQuestions(),
+                    myQuizzes.iterator().next().getComments());
+            newQuiz.setId(myQuizzes.iterator().next().getId());
+            newQuiz.setDate_added(myQuizzes.iterator().next().getDate_added());
+            returnQuizzes.add(newQuiz);
+
+        }
+
+        return returnQuizzes;
     }
 
     @CrossOrigin
@@ -115,10 +124,10 @@ public class QuizController {
     private void MapObjects(Quiz quiz) {
 
         Quiz newQuiz = new Quiz(quiz.getNumberOfQuestions(), quiz.getScore(), quiz.getComments());
-        Set<Answer> mynewAnswers = new HashSet<>();
+        List<Answer> mynewAnswers = new ArrayList<>();
 
 
-        Set<Answer> answers = quiz.getAnswers();
+        List<Answer> answers = quiz.getAnswers();
 
         //Iterator<Answer> iterator = answers.iterator();
         for (Answer answer : answers) {
