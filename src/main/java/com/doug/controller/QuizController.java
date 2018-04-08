@@ -1,9 +1,11 @@
 package com.doug.controller;
 
 import com.doug.model.Answer;
+import com.doug.model.Book;
 import com.doug.model.Quiz;
 import com.doug.repository.QuizRepository;
 import com.doug.service.QuizService;
+import com.sun.xml.internal.xsom.impl.scd.Iterators;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,25 +28,36 @@ public class QuizController {
 //        return myQuizzes;
 //    }
 
+
+//    @CrossOrigin
+//    @RequestMapping(value = "/api/bookList", method = RequestMethod.GET)
+//    public Iterable list() {
+//
+//
+//        Iterable<Book> myBooks = bookService.getAllBooks();
+//
+////        model.addAttribute("books", myBooks);
+//
+//        return myBooks;
+//    }
+
     @CrossOrigin
     @RequestMapping(value = "/api/QuizList", method = RequestMethod.GET)
     public Iterable list() {
-        Iterable<Quiz> myQuizzes= quizService.getAllResults();
+        Iterable<Quiz> myQuizzes= quizService.getAllQuizzes();
 
-        ArrayList<Quiz> returnQuizzes = new ArrayList<>();
-        Quiz newQuiz;
-
-        for (int i = 0; i< ((Collection<?>) myQuizzes).size();i++) {
-            newQuiz = new Quiz(myQuizzes.iterator().next().getScore(),myQuizzes.iterator().next().getNumberOfQuestions(),
-                    myQuizzes.iterator().next().getComments());
-            newQuiz.setId(myQuizzes.iterator().next().getId());
-            newQuiz.setDate_added(myQuizzes.iterator().next().getDate_added());
-            returnQuizzes.add(newQuiz);
-
-        }
-
-        return returnQuizzes;
+        return myQuizzes;
     }
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/answerList", method = RequestMethod.GET)
+    public Iterable answerList() {
+        Iterable<Answer> myAnswers = quizService.getAllAnswers();
+
+        return myAnswers;
+    }
+
+
 
     @CrossOrigin
     @RequestMapping(value = "/api/OneQuiz/{id}", method = RequestMethod.GET)
@@ -77,22 +90,24 @@ public class QuizController {
 //        quizRepository.delete(4);
     }
 
-    @CrossOrigin
-    @RequestMapping(value = "/api/getQuiz", method = RequestMethod.GET)
-    public void getQuizzes() {
-
-        List<Quiz> quizzes = quizRepository.findAll();
-        System.out.println(quizzes.toString());
-
-
-    }
+//    @CrossOrigin
+//    @RequestMapping(value = "/api/getQuiz", method = RequestMethod.GET)
+//    public void getQuizzes() {
+//
+////        Iterable<Quiz> quizzes = quizRepository.findAll();
+//        System.out.println(quizService.getAllResults());
+//
+//
+//
+//    }
 
 
     @CrossOrigin
     @RequestMapping(value = "/api/addQuiz", method = RequestMethod.GET)
     public void AddFakeQuiz() {
 
-        Quiz quiz = new Quiz(12, 85, "dude comments here");
+        Quiz quiz = new Quiz(12, 85, "dude comments here",
+                new Date());
 
         Answer myAnswer1 = new Answer();
         myAnswer1.setQuestion(1);
@@ -108,8 +123,12 @@ public class QuizController {
         myAnswer2.setComments("comments in answer here");
         myAnswer2.setQuiz(quiz);
 
-        quiz.getAnswers().add(myAnswer1);
-        quiz.getAnswers().add(myAnswer2);
+        Set<Answer> myAnswerArray = new HashSet<Answer>();
+
+        myAnswerArray.add(myAnswer1);
+        myAnswerArray.add(myAnswer2);
+
+        quiz.setAnswers(myAnswerArray);
 
         quizRepository.save(quiz);
 
@@ -123,22 +142,22 @@ public class QuizController {
 
     private void MapObjects(Quiz quiz) {
 
-        Quiz newQuiz = new Quiz(quiz.getNumberOfQuestions(), quiz.getScore(), quiz.getComments());
-        List<Answer> mynewAnswers = new ArrayList<>();
+        Quiz newQuiz = new Quiz();
+        Set<Answer> mynewAnswers = new HashSet<>();
 
 
-        List<Answer> answers = quiz.getAnswers();
+        Set<Answer> answers = quiz.getAnswers();
 
         //Iterator<Answer> iterator = answers.iterator();
         for (Answer answer : answers) {
-            System.out.println(answer.getAnswer());
+            System.out.println(answer.getQuestion());
 
             Answer myAnswer1 = new Answer();
             myAnswer1.setQuestion(answer.getQuestion());
-            myAnswer1.setAnswer(answer.getAnswer());
+            myAnswer1.setQuestion(answer.getQuestion());
             myAnswer1.setCorrect(answer.getCorrect());
             myAnswer1.setComments(answer.getComments());
-            myAnswer1.setQuiz(newQuiz);
+//            myAnswer1.setQuiz(newQuiz);
 
             mynewAnswers.add(myAnswer1);
         }

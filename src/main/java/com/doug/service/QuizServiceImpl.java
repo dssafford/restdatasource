@@ -1,14 +1,12 @@
 package com.doug.service;
 
 import com.doug.model.Answer;
+import com.doug.model.Location;
 import com.doug.model.Quiz;
 import com.doug.repository.AnswerRepository;
 import com.doug.repository.QuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class QuizServiceImpl implements QuizService{
@@ -19,11 +17,22 @@ public class QuizServiceImpl implements QuizService{
     @Autowired
     AnswerRepository answerRepository;
 
+//    @Override
+//    public Iterable<Location> getAllLocations() {
+//
+//
+//        return locationRepository.findAll();
+//    }
     @Override
-    public Iterable<Quiz> getAllResults() {
+    public Iterable<Quiz> getAllQuizzes() {
 
-        Iterable<Quiz> myquiz = quizRepository.findAll();
-        return myquiz;
+        return quizRepository.findAll();
+    }
+
+    @Override
+    public Iterable<Answer> getAllAnswers() {
+
+        return answerRepository.findAll();
     }
 
     @Override
@@ -43,26 +52,26 @@ public class QuizServiceImpl implements QuizService{
     public void addSampleQuizData() {
 
 
-        Quiz quiz = new Quiz(4, 80, "dude comments here");
+//        Quiz quiz = new Quiz(4, 80, "dude comments here");
+//
+//        Answer myAnswer1 = new Answer();
+//        myAnswer1.setQuestion(1);
+//        myAnswer1.setAnswer(1);
+//        myAnswer1.setCorrect(true);
+//        myAnswer1.setComments("comments in answer here");
+//        myAnswer1.setQuiz(quiz);
+//
+//        Answer myAnswer2 = new Answer();
+//        myAnswer1.setQuestion(1);
+//        myAnswer1.setAnswer(1);
+//        myAnswer1.setCorrect(true);
+//        myAnswer1.setComments("comments in answer here");
+//        myAnswer1.setQuiz(quiz);
+//
+//        quiz..getAnswers().add(myAnswer1);
+//        quiz.getAnswers().add(myAnswer2);
 
-        Answer myAnswer1 = new Answer();
-        myAnswer1.setQuestion(1);
-        myAnswer1.setAnswer(1);
-        myAnswer1.setCorrect(true);
-        myAnswer1.setComments("comments in answer here");
-        myAnswer1.setQuiz(quiz);
-
-        Answer myAnswer2 = new Answer();
-        myAnswer1.setQuestion(1);
-        myAnswer1.setAnswer(1);
-        myAnswer1.setCorrect(true);
-        myAnswer1.setComments("comments in answer here");
-        myAnswer1.setQuiz(quiz);
-
-        quiz.getAnswers().add(myAnswer1);
-        quiz.getAnswers().add(myAnswer2);
-
-        quizRepository.save(quiz);
+//        quizRepository.save(quiz);
 
 //        quizRepository.delete(4);
 

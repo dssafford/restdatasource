@@ -1,17 +1,16 @@
 package com.doug.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
 @Entity
 @Table(name = "answer")
-public class Answer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class Answer{
+    private Integer id;
     @NotNull
     private Integer question ;
 
@@ -23,30 +22,36 @@ public class Answer {
 
     @Size(max = 250)
     private String comments;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "quiz_id", nullable = false)
     private Quiz quiz;
 
     public Answer() {
 
     }
 
-    public Answer(@NotNull Integer question, @NotNull Integer answer,
-                  @NotNull Boolean correct, @Size(max = 250) String comments) {
-        this.question = question;
-        this.answer = answer;
-        this.correct = correct;
-        this.comments = comments;
-    }
 
-    public Long getId() {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
+
+
+
+    @ManyToOne
+    @JoinColumn(name = "quiz_id")
+    @JsonManagedReference
+    public Quiz getQuiz() {
+        return quiz;
+    }
+
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
+    }
+
 
     public Integer getQuestion() {
         return question;
@@ -78,13 +83,5 @@ public class Answer {
 
     public void setComments(String comments) {
         this.comments = comments;
-    }
-
-    public Quiz getQuiz() {
-        return quiz;
-    }
-
-    public void setQuiz(Quiz quiz) {
-        this.quiz = quiz;
     }
 }

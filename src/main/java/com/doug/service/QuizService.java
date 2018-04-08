@@ -14,7 +14,10 @@ public interface QuizService {
 
     Quiz getOneResult(Integer id);
 
-    Iterable<Quiz> getAllResults();
+
+    Iterable<Answer> getAllAnswers();
+
+    Iterable<Quiz> getAllQuizzes();
 
     void addSampleQuizData();
 
