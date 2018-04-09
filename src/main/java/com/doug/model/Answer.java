@@ -41,9 +41,9 @@ public class Answer{
 
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quiz_id")
-    @JsonManagedReference
+    @JsonBackReference
     public Quiz getQuiz() {
         return quiz;
     }

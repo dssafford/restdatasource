@@ -48,8 +48,9 @@ public class Quiz {
 //        this.name = name;
 //    }
 
-    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
-    @JsonBackReference
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    @JsonManagedReference
     public Set<Answer> getAnswers() {
         return answers;
     }
@@ -58,9 +59,7 @@ public class Quiz {
         this.answers = answers;
     }
 
-    public Quiz(){
-
-    }
+    public Quiz(){ }
 
     public Quiz(Integer numberOfQuestions, Integer score, String comments,
                 Date date_added) {

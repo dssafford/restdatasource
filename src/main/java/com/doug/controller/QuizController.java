@@ -1,14 +1,11 @@
 package com.doug.controller;
 
 import com.doug.model.Answer;
-import com.doug.model.Book;
 import com.doug.model.Quiz;
 import com.doug.repository.QuizRepository;
 import com.doug.service.QuizService;
-import com.sun.xml.internal.xsom.impl.scd.Iterators;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.*;
 
 @RestController
@@ -70,7 +67,9 @@ public class QuizController {
     @RequestMapping(value = "/api/Quiz", method = RequestMethod.POST)
     public void getQuiz(@RequestBody Quiz quiz) {
 
-        this.MapObjects(quiz);
+//        this.MapObjects(quiz);
+
+        quizRepository.save(quiz);
 
 //        quizService.addQuiz(quiz);
     }
