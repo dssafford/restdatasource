@@ -1,13 +1,13 @@
 package com.doug.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
+
 
 @Entity
 @Table(name = "quiz")
@@ -26,7 +26,7 @@ public class Quiz {
     @NotNull
     @Size(max = 250)
     private String comments;
-    private Set<Answer> answers;
+    private List<Answer> answers;
 
 
 
@@ -40,22 +40,14 @@ public class Quiz {
         this.id = id;
     }
 
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
     @JsonManagedReference
-    public Set<Answer> getAnswers() {
+    public List<Answer> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(Set<Answer> answers) {
+    public void setAnswers(List<Answer> answers) {
         this.answers = answers;
     }
 

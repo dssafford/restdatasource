@@ -122,7 +122,7 @@ public class QuizController {
         myAnswer2.setComments("comments in answer here");
         myAnswer2.setQuiz(quiz);
 
-        Set<Answer> myAnswerArray = new HashSet<Answer>();
+        ArrayList<Answer> myAnswerArray = new ArrayList<>();
 
         myAnswerArray.add(myAnswer1);
         myAnswerArray.add(myAnswer2);
@@ -142,10 +142,10 @@ public class QuizController {
     private void MapObjects(Quiz quiz) {
 
         Quiz newQuiz = new Quiz();
-        Set<Answer> mynewAnswers = new HashSet<>();
+        ArrayList<Answer> mynewAnswers = new ArrayList<>();
 
 
-        Set<Answer> answers = quiz.getAnswers();
+        List<Answer> answers = quiz.getAnswers();
 
         //Iterator<Answer> iterator = answers.iterator();
         for (Answer answer : answers) {
