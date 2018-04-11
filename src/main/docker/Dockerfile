@@ -1,6 +1,6 @@
-FROM frolvlad/alpine-oraclejdk8:slim
-VOLUME /tmp
-ADD /springbootdatajpa-0.0.1-SNAPSHOT.jar app.jar
-RUN sh -c 'touch /app.jar'
-ENV JAVA_OPTS=""
-ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar //app.jar" ]
+FROM java:8
+ADD restdatasource-0.0.1-SNAPSHOT.jar app.jar
+ADD wrapper.sh wrapper.sh
+RUN bash -c 'chmod +x /wrapper.sh'
+RUN bash -c 'touch /app.jar'
+ENTRYPOINT ["/bin/bash", "/wrapper.sh"]

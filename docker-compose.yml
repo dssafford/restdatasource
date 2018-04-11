@@ -1,0 +1,27 @@
+version: '3'
+
+services: 
+  mydougMySql:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    volumes:
+      - /Users/c023490/dockerdata/mysql-data:/var/lib/mysql
+    ports:
+     - 9015:3306
+
+  restdatasource:
+    image: dssafford/restdatasource:latest
+    depends_on:
+      - mydougMySql
+    ports:
+      - 8004:8004
+    environment:
+      - DATABASE_HOST=${MYSQL_HOST}
+      - DATABASE_USER=${MYSQL_USER}
+      - DATABASE_PASSWORD=${MYSQL_PASSWORD}
+      - DATABASE_NAME=${MYSQL_DATABASE}
+      - DATABASE_PORT=${MYSQL_PORT}
