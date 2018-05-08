@@ -72,4 +72,11 @@ public class AnswerServiceImpl implements AnswerService {
         return dogList;
     }
 
+
+    @Override
+    public String getLorayneAnswer(Integer answer) {
+
+
+        return null;
+    }
 }

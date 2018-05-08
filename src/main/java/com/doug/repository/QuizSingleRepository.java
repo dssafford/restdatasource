@@ -1,9 +1,9 @@
 package com.doug.repository;
 
-import com.doug.model.Quiz;
+import com.doug.model.QuizSingle;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface QuizRepository extends JpaRepository<Quiz, Integer> {
+public interface QuizSingleRepository extends JpaRepository<QuizSingle, Integer> {
 
 //    List<Quiz> findAll();
 

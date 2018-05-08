@@ -1,7 +1,6 @@
 package com.doug.controller;
 
 import com.doug.model.Answer;
-import com.doug.model.Quiz;
 import com.doug.service.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,5 +26,12 @@ public class AnswerController {
 
         answerService.addAnswer(answer);
     }
+
+//    @CrossOrigin
+//    @RequestMapping(value = "/api/textAnswer/{id}", method = RequestMethod.POST)
+//    public void getLorayneAnswer(@RequestBody Answer answer) {
+//
+//        return answerService.getLorayneAnswer(answer);
+//    }
 
 }

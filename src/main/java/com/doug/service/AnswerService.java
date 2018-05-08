@@ -12,5 +12,7 @@ public interface AnswerService {
 
         void addAnswer(Answer answer);
 
+        String getLorayneAnswer(Integer answer);
+
 
 }

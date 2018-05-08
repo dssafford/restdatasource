@@ -16,6 +16,12 @@ server:
 #logging:
 #  level:
 #    com.example.howtodoinjava: DEBUG
+#spring.jpa.hibernate.ddl-auto=update
+#show sql statement
+#logging.level.org.hibernate.SQL=debug
+#spring.jpa.show-sql=true
+#spring.jpa.properties.hibernate.format_sql=true
+
 
 spring:
   datasource:
@@ -26,6 +32,19 @@ spring:
     initialize: false
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: validate
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+        type:
+          descriptor:
+            sql: trace
+
+
 ---
 spring:
   profiles: container

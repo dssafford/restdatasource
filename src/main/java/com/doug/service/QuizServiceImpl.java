@@ -1,7 +1,7 @@
 package com.doug.service;
 
 import com.doug.model.Answer;
-import com.doug.model.Location;
+
 import com.doug.model.Quiz;
 import com.doug.repository.AnswerRepository;
 import com.doug.repository.QuizRepository;

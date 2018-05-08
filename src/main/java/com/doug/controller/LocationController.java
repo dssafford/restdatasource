@@ -1,5 +1,6 @@
 package com.doug.controller;
 
+import com.doug.model.HomeLocation;
 import com.doug.model.Location;
 import com.doug.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +62,17 @@ public class LocationController {
 
         return myLocations;
     }
+
+	@CrossOrigin
+	@RequestMapping(value = "/api/homeLocationList", method = RequestMethod.GET)
+	public Iterable homeLocationList(Model model) {
+
+
+		Iterable<HomeLocation> homeLocations = locationService.getAllHomeLocations();
+
+
+		return homeLocations;
+	}
+
 
 }
