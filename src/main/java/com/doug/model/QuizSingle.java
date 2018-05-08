@@ -24,6 +24,9 @@ public class QuizSingle {
     private String answer;
 
     @NotNull
+    private Boolean is_correct;
+
+    @NotNull
     private String comments;
 
     public Integer getId() {
@@ -35,10 +38,11 @@ public class QuizSingle {
 
     public QuizSingle(){ }
 
-    public QuizSingle(Integer question, String answer, String comments,
+    public QuizSingle(Integer question, String answer, Boolean is_correct, String comments,
                       Date date_added) {
         this.question = question;
         this.answer = answer;
+        this.is_correct = is_correct;
         this.comments = comments;
         this.date_added = date_added;
     }
@@ -49,6 +53,14 @@ public class QuizSingle {
 
     public void setQuestion(Integer question) {
         this.question = question;
+    }
+
+    public Boolean getIs_correct() {
+        return is_correct;
+    }
+
+    public void setIs_correct(Boolean is_correct) {
+        this.is_correct = is_correct;
     }
 
     public String getAnswer() {

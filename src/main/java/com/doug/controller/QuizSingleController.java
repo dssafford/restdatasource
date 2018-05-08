@@ -35,8 +35,8 @@ public class QuizSingleController {
 
     @CrossOrigin
     @RequestMapping(value = "/api/addSingleQuiz", method = RequestMethod.POST)
-    public void getQuiz(@RequestBody QuizSingle quiz) {
-        quizSingleRepository.save(quiz);
+    public void getQuiz(@RequestBody QuizSingle quizSingle) {
+        quizSingleRepository.save(quizSingle);
     }
 
 
@@ -70,7 +70,7 @@ public class QuizSingleController {
     @RequestMapping(value = "/api/addFakeSingleQuiz", method = RequestMethod.GET)
     public QuizSingle AddFakeQuizSingle() {
 
-        QuizSingle quiz = new QuizSingle(12, "tot",
+        QuizSingle quiz = new QuizSingle(12, "tot", true,
                 "fake single comments here",
                 new Date());
 
